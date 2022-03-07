@@ -1,10 +1,17 @@
-import React from 'react'
+import React, {useState} from 'react';
+import { BrowserRouter as Router } from 'react-router-dom';
+import Header from './components/Header';
+import Home from './components/Home';
 
 function App() {
+  const [currency,setCurrency] = useState('')
   return (
-    <div>
-      <h1 className='text-6xl'>Hello World</h1>
-    </div>
+    <Router>
+      <div className='bg-slate-900 text-white'>
+        <Header setCurrency={setCurrency}/>
+        <Home/>
+      </div>
+    </Router>
   );
 }
 
