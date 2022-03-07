@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import { BrowserRouter as Router } from 'react-router-dom';
 import Header from './components/Header';
-import Home from './components/Home';
+import HomePage from './pages/HomePage';
 
 function App() {
   const [currency,setCurrency] = useState('')
@@ -9,7 +9,7 @@ function App() {
     <Router>
       <div className='bg-slate-900 text-white'>
         <Header setCurrency={setCurrency}/>
-        <Home/>
+        <HomePage/>
       </div>
     </Router>
   );
