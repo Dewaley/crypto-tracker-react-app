@@ -4,13 +4,14 @@ import AliceCarousel from 'react-alice-carousel';
 import 'react-alice-carousel/lib/alice-carousel.css';
 import { TrendingCoins } from '../config/api';
 
-const Carousel = ({ currency }) => {
+const Carousel = ({ currency, symbol, isLoading, setIsLoading }) => {
   const [trending, setTrending] = useState([]);
   const fetchTrending = async () => {
+    setIsLoading(true)
     const res = await fetch(TrendingCoins(currency));
     const data = await res.json();
     setTrending(data);
-    console.log(data);
+    setIsLoading(false)
   };
   useEffect(() => {
     fetchTrending();
@@ -39,6 +40,7 @@ const Carousel = ({ currency }) => {
           </span>
         </div>
         <span>
+          {symbol}
           {coin.current_price.toFixed(2) > 1
             ? numberWithCommas(coin.current_price.toFixed(2))
             : coin.current_price.toFixed(5)}
@@ -48,7 +50,14 @@ const Carousel = ({ currency }) => {
   });
   return (
     <div>
-      <AliceCarousel
+      {
+        isLoading ? <div class='overflow-hidden opacity-75 flex flex-col items-center justify-center my-4'>
+        <div class='loader ease-linear rounded-full border-4 border-t-4 border-gray-200 h-12 w-12 mb-4'></div>
+        <h2 class='text-center text-white text-xl font-semibold'>Loading...</h2>
+        <p class='w-1/3 text-center text-white'>
+          This may take a few seconds, please don't close this page.
+        </p>
+      </div> : <AliceCarousel
         mouseTracking
         infinite
         autoPlayInterval={1000}
@@ -59,6 +68,9 @@ const Carousel = ({ currency }) => {
         items={items}
         disableButtonsControls
       />
+      }
+      
+      
     </div>
   );
 };
