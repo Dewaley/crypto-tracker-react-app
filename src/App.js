@@ -4,12 +4,12 @@ import Header from './components/Header';
 import HomePage from './pages/HomePage';
 
 function App() {
-  const [currency,setCurrency] = useState('')
+  const [currency,setCurrency] = useState('USD')
   return (
     <Router>
       <div className='bg-slate-900 text-white'>
         <Header setCurrency={setCurrency}/>
-        <HomePage/>
+        <HomePage currency={currency}/>
       </div>
     </Router>
   );

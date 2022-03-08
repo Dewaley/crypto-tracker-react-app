@@ -8,11 +8,16 @@ const Header = ({ setCurrency }) => {
         name='currency'
         id=''
         className='bg-transparent border-2 border-white p-1.5 rounded-md'
-        onClick={(e) => setCurrency(e.target.value)}
       >
-        <option value=''>USD</option>
-        <option value=''>EUR</option>
-        <option value=''>NGN</option>
+        <option value='USD' onClick={(e) => setCurrency(e.target.value)}>
+          USD
+        </option>
+        <option value='EUR' onClick={(e) => setCurrency(e.target.value)}>
+          EUR
+        </option>
+        <option value='NGN' onClick={(e) => setCurrency(e.target.value)}>
+          NGN
+        </option>
       </select>
     </div>
   );
