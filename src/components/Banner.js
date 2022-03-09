@@ -1,5 +1,5 @@
-import React from 'react'
-import Carousel from './Carousel'
+import React from 'react';
+import Carousel from './Carousel';
 
 const Banner = ({ currency, symbol, isLoading, setIsLoading }) => {
   return (
@@ -18,4 +18,4 @@ const Banner = ({ currency, symbol, isLoading, setIsLoading }) => {
   );
 };
 
-export default Banner
+export default Banner;
