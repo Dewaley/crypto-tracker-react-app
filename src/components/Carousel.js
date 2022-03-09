@@ -33,17 +33,17 @@ const Carousel = ({ currency, symbol, isLoading, setIsLoading }) => {
       <div className='flex flex-col justify-center items-center mt-8 mb-4'>
         <img src={coin.image} alt={coin.name} className='w-20 mb-2' />
         <div>
-          <span className='uppercase mr-1.5'>{coin.symbol}</span>
+          <span className='uppercase mr-0.5'>{coin.symbol}</span>
           <span className={`${profit ? 'text-emerald-700' : 'text-red-700'}`}>
             {profit && '+'}
             {coin.price_change_percentage_24h.toFixed(2)}%
           </span>
         </div>
-        <span>
+        <span className='text-xl font-medium'>
           {symbol}
           {coin.current_price.toFixed(2) > 1
             ? numberWithCommas(coin.current_price.toFixed(2))
-            : coin.current_price.toFixed(5)}
+            : coin.current_price.toFixed(2)}
         </span>
       </div>
     );
