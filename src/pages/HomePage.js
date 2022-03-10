@@ -7,10 +7,10 @@ const HomePage = ({ currency, symbol, isLoading, setIsLoading }) => {
       {/* <Banner
         currency={currency}
         symbol={symbol}
-        isLoading={isLoading}
-        setIsLoading={setIsLoading}
+        
+        
       /> */}
-      <CoinTable currency={currency} symbol={symbol} />
+      <CoinTable currency={currency} symbol={symbol} isLoading={isLoading} setIsLoading={setIsLoading}/>
     </div>
   );
 };

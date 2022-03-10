@@ -7,7 +7,7 @@ import HomePage from './pages/HomePage';
 function App() {
   const [currency, setCurrency] = useState('USD');
   const [symbol, setSymbol] = useState('$');
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
   useEffect(() => {
     if (currency === 'USD') {
       setSymbol('$');

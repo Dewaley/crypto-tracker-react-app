@@ -66,7 +66,7 @@ const CoinTable = ({ currency,symbol }) => {
                   {profit && '+'}
                   {coin.price_change_percentage_24h.toFixed(2)}%
                 </td>
-                <td className='text-right w-3/12'>{symbol}{numberWithCommas(coin.market_cap.toString().slice(0,-6))}M</td>
+                <td className='text-right w-3/12 px-4'>{symbol}{numberWithCommas(coin.market_cap.toString().slice(0,-6))}M</td>
               </tr>
             );}
           )}
