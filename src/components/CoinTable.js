@@ -1,26 +1,30 @@
-import React, {useState,useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import { CoinList } from '../config/api';
 
-const CoinTable = ({currency}) => {
-  const [coinList,setCoinList] = useState([])
+const CoinTable = ({ currency }) => {
+  const [coinList, setCoinList] = useState([]);
   const fetchCoinList = async () => {
     const res = await fetch(CoinList(currency));
     const data = await res.json();
-    setCoinList(data)
-    console.log(data)
-  }
-  useEffect (()=> {
-    fetchCoinList()
-  },[currency])
-   return (
-    <div>
+    setCoinList(data);
+    console.log(data);
+  };
+  useEffect(() => {
+    fetchCoinList();
+  }, [currency]);
+  //'absolute '
+  return (
+    <div className='flex justify-center items-center flex-col'>
       <h1 className='text-center'>Cryptocurrency Prices By Market Cap</h1>
-      <input
-        type='text'
-        name=''
-        id=''
-        placeholder='Search For a Cryptocurrency..'
-      />
+      <div className='w-11/12'>
+        <input
+          className='bg-transparent border-2 border-gray-700 p-3 w-full rounded text-white outline-none focus:border-white z-20'
+          type='text'
+          name=''
+          id=''
+          placeholder='Search For a Cryptocurrency..'
+        />
+      </div>
       <table className='table-auto'>
         <thead>
           <tr>
