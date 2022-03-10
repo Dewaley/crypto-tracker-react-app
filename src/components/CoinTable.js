@@ -1,7 +1,8 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect } from 'react';
 import { CoinList } from '../config/api';
 
-const CoinTable = ({ currency }) => {
+const CoinTable = ({ currency,symbol }) => {
   const [coinList, setCoinList] = useState([]);
   const fetchCoinList = async () => {
     const res = await fetch(CoinList(currency));
@@ -9,9 +10,12 @@ const CoinTable = ({ currency }) => {
     setCoinList(data);
     console.log(data);
   };
+  function numberWithCommas(x) {
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+  }
   useEffect(() => {
     fetchCoinList();
-  }, [currency]);
+  }, [currency,symbol]);
   //'absolute '
   return (
     <div className='flex justify-center items-center flex-col'>
@@ -35,22 +39,37 @@ const CoinTable = ({ currency }) => {
           </tr>
         </thead>
         <tbody className='w-11/12 table-fixed bg-gray-800'>
-          {coinList.map((coin) => (
-            <tr className='border-b-2 border-gray-700 h-12'>
-              <td className='w-3/12'>
-                <div className='flex my-3'>
-                  <img src={coin.image} alt={coin.name} className='h-12 px-4' />
-                  <div className='flex flex-col'>
-                    <span className='uppercase'>{coin.symbol}</span>
-                    <span>{coin.name}</span>
+          {coinList.map((coin) =>{
+            let profit = coin.price_change_percentage_24h >= 0
+            return (
+              <tr className='border-b-2 border-gray-700 h-12'>
+                <td className='w-3/12'>
+                  <div className='flex my-3'>
+                    <img
+                      src={coin.image}
+                      alt={coin.name}
+                      className='h-12 px-4'
+                    />
+                    <div className='flex flex-col'>
+                      <span className='uppercase'>{coin.symbol}</span>
+                      <span>{coin.name}</span>
+                    </div>
                   </div>
-                </div>
-              </td>
-              <td className='text-right w-3/12'>Malwcolm Lockyer</td>
-              <td className='text-right w-3/12'>1961</td>
-              <td className='text-right w-3/12'>1961</td>
-            </tr>
-          ))}
+                </td>
+                <td className='text-right w-3/12'>
+                  {symbol}
+                  {coin.current_price > 1
+                    ? numberWithCommas(coin.current_price.toFixed(2))
+                    : coin.current_price.toFixed(2)}
+                </td>
+                <td className={`text-right w-3/12 ${profit ? 'text-emerald-700' : 'text-red-700'}`}>
+                  {profit && '+'}
+                  {coin.price_change_percentage_24h.toFixed(2)}%
+                </td>
+                <td className='text-right w-3/12'>{symbol}{numberWithCommas(coin.market_cap.toString().slice(0,-6))}M</td>
+              </tr>
+            );}
+          )}
         </tbody>
       </table>
     </div>
