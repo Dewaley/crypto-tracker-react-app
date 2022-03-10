@@ -18,38 +18,39 @@ const CoinTable = ({ currency }) => {
       <h1 className='text-center'>Cryptocurrency Prices By Market Cap</h1>
       <div className='w-11/12'>
         <input
-          className='bg-transparent border-2 border-gray-700 p-3 w-full rounded text-white outline-none focus:border-white z-20'
+          className='bg-transparent border-2 border-gray-700 p-3 w-full rounded text-white focus:border-gray-500 outline-none mb-5'
           type='text'
           name=''
           id=''
           placeholder='Search For a Cryptocurrency..'
         />
       </div>
-      <table className='table-auto'>
-        <thead>
-          <tr>
-            <th>Coin</th>
-            <th>Price</th>
-            <th>24h change</th>
-            <th>Market Cap</th>
+      <table className='w-11/12'>
+        <thead className=''>
+          <tr className='h-12 bg-white text-slate-900 rounded'>
+            <th className='text-left px-4'>Coin</th>
+            <th className='text-right'>Price</th>
+            <th className='text-right'>24h change</th>
+            <th className='text-right px-4'>Market Cap</th>
           </tr>
         </thead>
-        <tbody>
-          <tr>
-            <td>The Sliding Mr. Bones (Next Stop, Pottersville)</td>
-            <td>Malcolm Lockyer</td>
-            <td>1961</td>
-          </tr>
-          <tr>
-            <td>Witchy Woman</td>
-            <td>The Eagles</td>
-            <td>1972</td>
-          </tr>
-          <tr>
-            <td>Shining Star</td>
-            <td>Earth, Wind, and Fire</td>
-            <td>1975</td>
-          </tr>
+        <tbody className='w-11/12 table-fixed bg-gray-800'>
+          {coinList.map((coin) => (
+            <tr className='border-b-2 border-gray-700 h-12'>
+              <td className='w-3/12'>
+                <div className='flex my-3'>
+                  <img src={coin.image} alt={coin.name} className='h-12 px-4' />
+                  <div className='flex flex-col'>
+                    <span className='uppercase'>{coin.symbol}</span>
+                    <span>{coin.name}</span>
+                  </div>
+                </div>
+              </td>
+              <td className='text-right w-3/12'>Malwcolm Lockyer</td>
+              <td className='text-right w-3/12'>1961</td>
+              <td className='text-right w-3/12'>1961</td>
+            </tr>
+          ))}
         </tbody>
       </table>
     </div>

@@ -10,7 +10,7 @@ const HomePage = ({ currency, symbol, isLoading, setIsLoading }) => {
         isLoading={isLoading}
         setIsLoading={setIsLoading}
       /> */}
-      <CoinTable currency={currency} />
+      <CoinTable currency={currency} symbol={symbol} />
     </div>
   );
 };
