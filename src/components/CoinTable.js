@@ -48,12 +48,12 @@ const CoinTable = ({ currency, symbol, isLoading, setIsLoading }) => {
           <h2 class='text-center text-white text-xl font-semibold'>
             Loading Coins...
           </h2>
-          <p class='w-1/3 text-center text-white'>
+          <p class='text-center text-white'>
             This may take a few seconds, please don't close this page.
           </p>
         </div>
       ) : (
-        <table className='w-11/12'>
+        <table className='w-11/12 text-sm sm:text-base'>
           <thead className=''>
             <tr className='h-12 bg-white text-slate-900 rounded'>
               <th className='text-left px-4'>Coin</th>
@@ -68,11 +68,11 @@ const CoinTable = ({ currency, symbol, isLoading, setIsLoading }) => {
               return (
                 <tr className='border-b-2 border-gray-700 h-12'>
                   <td className='w-3/12'>
-                    <div className='flex my-3'>
+                    <div className='flex items-center my-3'>
                       <img
                         src={coin.image}
                         alt={coin.name}
-                        className='h-12 px-4'
+                        className='h-8 sm:px-4 px-2'
                       />
                       <div className='flex flex-col'>
                         <span className='uppercase'>{coin.symbol}</span>
