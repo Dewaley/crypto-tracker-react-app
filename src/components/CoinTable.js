@@ -15,7 +15,7 @@ const CoinTable = ({ currency, symbol, isLoading, setIsLoading }) => {
   };
 
   const numberWithCommas = (x) => {
-    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
   };
   useEffect(() => {
     fetchCoinList();
@@ -43,12 +43,12 @@ const CoinTable = ({ currency, symbol, isLoading, setIsLoading }) => {
         />
       </div>
       {isLoading ? (
-        <div class='overflow-hidden opacity-75 flex flex-col items-center justify-center my-4 w-full'>
-          <div class='loader ease-linear rounded-full border-4 border-t-4 border-gray-200 h-12 w-12 mb-4'></div>
-          <h2 class='text-center text-white text-xl font-semibold'>
+        <div className='overflow-hidden opacity-75 flex flex-col items-center justify-center my-4 w-full'>
+          <div className='loader ease-linear rounded-full border-4 border-t-4 border-gray-200 h-12 w-12 mb-4'></div>
+          <h2 className='text-center text-white text-xl font-semibold'>
             Loading Coins...
           </h2>
-          <p class='text-center text-white'>
+          <p className='text-center text-white'>
             This may take a few seconds, please don't close this page.
           </p>
         </div>
@@ -67,7 +67,7 @@ const CoinTable = ({ currency, symbol, isLoading, setIsLoading }) => {
               let profit = coin.price_change_percentage_24h >= 0;
               return (
                 <tr className='border-b-2 border-gray-700 h-12'>
-                  <td className='w-3/12'>
+                  <td className='w-6/12'>
                     <div className='flex items-center my-3'>
                       <img
                         src={coin.image}
@@ -80,21 +80,21 @@ const CoinTable = ({ currency, symbol, isLoading, setIsLoading }) => {
                       </div>
                     </div>
                   </td>
-                  <td className='text-right w-3/12'>
+                  <td className='text-right w-6/12'>
                     {symbol}
-                    {coin.current_price > 1
-                      ? numberWithCommas(coin.current_price.toFixed(2))
+                    {coin.current_price > 999
+                      ? numberWithCommas(coin.current_price)
                       : coin.current_price.toFixed(2)}
                   </td>
                   <td
-                    className={`text-right w-3/12 ${
+                    className={`text-right w-2/12 ${
                       profit ? 'text-emerald-700' : 'text-red-700'
                     }`}
                   >
                     {profit && '+'}
                     {coin.price_change_percentage_24h.toFixed(2)}%
                   </td>
-                  <td className='text-right w-3/12 px-4'>
+                  <td className='text-right w-2/12 px-4'>
                     {symbol}
                     {numberWithCommas(coin.market_cap.toString().slice(0, -6))}M
                   </td>
