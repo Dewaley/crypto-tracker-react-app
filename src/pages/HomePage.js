@@ -4,13 +4,18 @@ import CoinTable from '../components/CoinTable';
 const HomePage = ({ currency, symbol, isLoading, setIsLoading }) => {
   return (
     <div>
-      {/* <Banner
+      <Banner
         currency={currency}
         symbol={symbol}
-        
-        
-      /> */}
-      <CoinTable currency={currency} symbol={symbol} isLoading={isLoading} setIsLoading={setIsLoading}/>
+        isLoading={isLoading}
+        setIsLoading={setIsLoading}
+      />
+      <CoinTable
+        currency={currency}
+        symbol={symbol}
+        isLoading={isLoading}
+        setIsLoading={setIsLoading}
+      />
     </div>
   );
 };

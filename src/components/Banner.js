@@ -3,7 +3,7 @@ import Carousel from './Carousel';
 
 const Banner = ({ currency, symbol, isLoading, setIsLoading }) => {
   return (
-    <div className='text-center'>
+    <div className='text-center bg-slate-800'>
       <h1 className='font-bold text-6xl my-2'>Coin Tracker</h1>
       <p className='font-light'>
         I have a magical orb that helps me monitor all coins

@@ -2,7 +2,7 @@ import React from 'react';
 
 const Header = ({ setCurrency }) => {
   return (
-    <div className='flex justify-between px-4 py-3 shadow-lg'>
+    <div className='flex justify-between px-4 py-3'>
       <h2 className='text-xl'>CoinTracker</h2>
       <select
         name='currency'

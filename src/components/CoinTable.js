@@ -4,6 +4,7 @@ import { CoinList } from '../config/api';
 
 const CoinTable = ({ currency, symbol, isLoading, setIsLoading }) => {
   const [coinList, setCoinList] = useState([]);
+  const [search, setSearch] = useState('');
   const fetchCoinList = async () => {
     setIsLoading(true);
     const res = await fetch(CoinList(currency));
@@ -12,16 +13,25 @@ const CoinTable = ({ currency, symbol, isLoading, setIsLoading }) => {
     console.log(data);
     setIsLoading(false);
   };
-  function numberWithCommas(x) {
+
+  const numberWithCommas = (x) => {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-  }
+  };
   useEffect(() => {
     fetchCoinList();
   }, [currency, symbol]);
-  //'absolute '
+  const handleSearch = () => {
+    return coinList.filter(
+      (coin) =>
+        coin.name.toLowerCase().includes(search) ||
+        coin.symbol.toLowerCase().includes(search)
+    );
+  };
   return (
     <div className='flex justify-center items-center flex-col'>
-      <h1 className='text-center text-4xl max-w-xl mb-3'>Cryptocurrency Prices By Market Cap</h1>
+      <h1 className='text-center text-4xl max-w-xl my-3'>
+        Cryptocurrency Prices By Market Cap
+      </h1>
       <div className='w-11/12'>
         <input
           className='bg-transparent border-2 border-gray-700 p-3 w-full rounded text-white focus:border-gray-500 outline-none mb-5'
@@ -29,30 +39,31 @@ const CoinTable = ({ currency, symbol, isLoading, setIsLoading }) => {
           name=''
           id=''
           placeholder='Search For a Cryptocurrency..'
+          onChange={(e) => setSearch(e.target.value.toLowerCase())}
         />
       </div>
-      
-        {isLoading ? (
-          <div class='overflow-hidden opacity-75 flex flex-col items-center justify-center my-4 w-full'>
-            <div class='loader ease-linear rounded-full border-4 border-t-4 border-gray-200 h-12 w-12 mb-4'></div>
-            <h2 class='text-center text-white text-xl font-semibold'>
-              Loading Coins...
-            </h2>
-            <p class='w-1/3 text-center text-white'>
-              This may take a few seconds, please don't close this page.
-            </p>
-          </div>
-        ) : (<table className='w-11/12'>
-        <thead className=''>
-          <tr className='h-12 bg-white text-slate-900 rounded'>
-            <th className='text-left px-4'>Coin</th>
-            <th className='text-right'>Price</th>
-            <th className='text-right'>24h change</th>
-            <th className='text-right px-4'>Market Cap</th>
-          </tr>
-        </thead>
-        <tbody className='w-11/12 table-fixed bg-gray-800'>
-            {coinList.map((coin) => {
+      {isLoading ? (
+        <div class='overflow-hidden opacity-75 flex flex-col items-center justify-center my-4 w-full'>
+          <div class='loader ease-linear rounded-full border-4 border-t-4 border-gray-200 h-12 w-12 mb-4'></div>
+          <h2 class='text-center text-white text-xl font-semibold'>
+            Loading Coins...
+          </h2>
+          <p class='w-1/3 text-center text-white'>
+            This may take a few seconds, please don't close this page.
+          </p>
+        </div>
+      ) : (
+        <table className='w-11/12'>
+          <thead className=''>
+            <tr className='h-12 bg-white text-slate-900 rounded'>
+              <th className='text-left px-4'>Coin</th>
+              <th className='text-right'>Price</th>
+              <th className='text-right'>24h change</th>
+              <th className='text-right px-4'>Market Cap</th>
+            </tr>
+          </thead>
+          <tbody className='w-11/12 table-fixed bg-gray-800'>
+            {handleSearch().map((coin) => {
               let profit = coin.price_change_percentage_24h >= 0;
               return (
                 <tr className='border-b-2 border-gray-700 h-12'>
@@ -91,7 +102,8 @@ const CoinTable = ({ currency, symbol, isLoading, setIsLoading }) => {
               );
             })}
           </tbody>
-        </table>)}
+        </table>
+      )}
     </div>
   );
 };
