@@ -28,7 +28,7 @@ const CoinTable = ({ currency, symbol, isLoading, setIsLoading }) => {
     );
   };
   return (
-    <div className='flex justify-center items-center flex-col'>
+    <div className='flex justify-center items-center flex-col pb-5'>
       <h1 className='text-center text-4xl max-w-xl my-3'>
         Cryptocurrency Prices By Market Cap
       </h1>
