@@ -10,10 +10,18 @@ const Header = ({ setCurrency}) => {
   const handleSelect = (value) => {
     setCurrency(value.value);
   };
+  const customStyles = {
+    option: (provided, state) => ({
+      ...provided,
+      backgroundColor: 'white',
+      color: 'rgb(15, 23, 42)',
+      cursor:'pointer'
+    }),
+  };
   return (
     <div className='flex justify-between px-4 py-3'>
       <h2 className='text-xl'>CoinTracker</h2>
-      <Select defaultValue={options[0]} onChange={handleSelect} options={options} />
+      <Select defaultValue={options[0]} onChange={handleSelect} options={options} styles={customStyles} isSearchable={false}/>
     </div>
   );
 };

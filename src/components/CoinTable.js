@@ -13,7 +13,7 @@ const CoinTable = ({ currency, symbol, isLoading, setIsLoading }) => {
     console.log(data);
     setIsLoading(false);
   };
-
+  
   const numberWithCommas = (x) => {
      return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
   };
