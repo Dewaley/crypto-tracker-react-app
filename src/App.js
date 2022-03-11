@@ -20,7 +20,7 @@ function App() {
   return (
     <Router>
       <div className='bg-slate-900 text-white'>
-        <Header setCurrency={setCurrency} />
+        <Header setCurrency={setCurrency} currency={currency} />
         <HomePage
           currency={currency}
           symbol={symbol}

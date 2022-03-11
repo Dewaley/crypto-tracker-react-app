@@ -1,24 +1,19 @@
-import React from 'react';
+import React, { useState } from 'react';
+import Select from 'react-select';
 
-const Header = ({ setCurrency }) => {
+const Header = ({ setCurrency}) => {
+  const options = [
+    { value: 'USD', label: 'USD' },
+    { value: 'EUR', label: 'EUR' },
+    { value: 'NGN', label: 'NGN' },
+  ];
+  const handleSelect = (value) => {
+    setCurrency(value.value);
+  };
   return (
     <div className='flex justify-between px-4 py-3'>
       <h2 className='text-xl'>CoinTracker</h2>
-      <select
-        name='currency'
-        id=''
-        className='bg-transparent border-2 border-white p-1.5 rounded-md'
-      >
-        <option value='USD' onClick={(e) => setCurrency(e.target.value)}>
-          USD
-        </option>
-        <option value='EUR' onClick={(e) => setCurrency(e.target.value)}>
-          EUR
-        </option>
-        <option value='NGN' onClick={(e) => setCurrency(e.target.value)}>
-          NGN
-        </option>
-      </select>
+      <Select defaultValue={options[0]} onChange={handleSelect} options={options} />
     </div>
   );
 };
