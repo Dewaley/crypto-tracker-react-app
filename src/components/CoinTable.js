@@ -53,7 +53,7 @@ const CoinTable = ({ currency, symbol, isLoading, setIsLoading }) => {
           </p>
         </div>
       ) : (
-        <table className='w-11/12 text-sm sm:text-base'>
+        <table className='w-full sm:w-11/12 text-xs sm:text-base'>
           <thead className=''>
             <tr className='h-12 bg-white text-slate-900 rounded'>
               <th className='text-left px-4'>Coin</th>

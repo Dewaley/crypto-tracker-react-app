@@ -19,7 +19,7 @@ function App() {
   }, [currency]);
   return (
     <Router>
-      <div className='bg-slate-900 text-white'>
+      <div className='bg-slate-900 text-white overflow-hidden'>
         <Header setCurrency={setCurrency} currency={currency} />
         <HomePage
           currency={currency}
