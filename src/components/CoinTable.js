@@ -68,6 +68,7 @@ const CoinTable = () => {
             marginPagesDisplayed={1}
             previousLabel={'<'}
             nextLabel={'>'}
+            forcePage={page - 1}
             onPageChange={handlePageClick}
             containerClassName={'flex my-2 justify-center items-center'}
             pageClassName={
@@ -142,6 +143,7 @@ const CoinTable = () => {
             marginPagesDisplayed={1}
             previousLabel={'<'}
             nextLabel={'>'}
+            forcePage={page - 1}
             onPageChange={handlePageClick}
             containerClassName={'flex my-2 justify-center items-center'}
             pageClassName={
