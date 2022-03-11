@@ -1,8 +1,12 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect,useContext } from 'react';
+import { CurrencyContext, LoadingContext, SymbolContext } from '../App';
 import { CoinList } from '../config/api';
 
-const CoinTable = ({ currency, symbol, isLoading, setIsLoading }) => {
+const CoinTable = () => {
+  const [currency,setCurrency]=useContext(CurrencyContext)
+  const [symbol,setSymbol] = useContext(SymbolContext)
+  const [isLoading,setIsLoading] = useContext(LoadingContext)
   const [coinList, setCoinList] = useState([]);
   const [search, setSearch] = useState('');
   const fetchCoinList = async () => {

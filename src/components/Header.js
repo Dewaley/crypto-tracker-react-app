@@ -1,7 +1,10 @@
-import React, { useState } from 'react';
+import React, { useContext } from 'react';
 import Select from 'react-select';
+import { CurrencyContext } from '../App';
 
-const Header = ({ setCurrency}) => {
+const Header = () => {
+  const [currency,setCurrency] = useContext(CurrencyContext)
+  
   const options = [
     { value: 'USD', label: 'USD' },
     { value: 'EUR', label: 'EUR' },
@@ -9,7 +12,9 @@ const Header = ({ setCurrency}) => {
   ];
   const handleSelect = (value) => {
     setCurrency(value.value);
+    console.log(currency)
   };
+  
   const customStyles = {
     option: (provided, state) => ({
       ...provided,

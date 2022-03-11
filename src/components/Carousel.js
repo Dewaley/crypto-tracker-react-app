@@ -1,10 +1,14 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import AliceCarousel from 'react-alice-carousel';
 import 'react-alice-carousel/lib/alice-carousel.css';
 import { TrendingCoins } from '../config/api';
+import { CurrencyContext, SymbolContext, LoadingContext } from '../App';
 
-const Carousel = ({ currency, symbol, isLoading, setIsLoading }) => {
+const Carousel = () => {
+  const [isLoading, setIsLoading] = useContext(LoadingContext);
+  const [currency, setCurrency] = useContext(CurrencyContext);
+  const [symbol, setSymbol] = useContext(SymbolContext);
   const [trending, setTrending] = useState([]);
   const fetchTrending = async () => {
     setIsLoading(true);

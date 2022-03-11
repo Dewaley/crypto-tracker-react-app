@@ -5,8 +5,6 @@ const HomePage = ({ currency, symbol, isLoading, setIsLoading }) => {
   return (
     <div>
       <Banner
-        currency={currency}
-        symbol={symbol}
         isLoading={isLoading}
         setIsLoading={setIsLoading}
       />
