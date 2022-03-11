@@ -1,14 +1,16 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useState, useEffect,useContext } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { CurrencyContext, LoadingContext, SymbolContext } from '../App';
+import ReactPaginate from 'react-paginate';
 import { CoinList } from '../config/api';
 
 const CoinTable = () => {
-  const [currency,setCurrency]=useContext(CurrencyContext)
-  const [symbol,setSymbol] = useContext(SymbolContext)
-  const [isLoading,setIsLoading] = useContext(LoadingContext)
+  const [currency, setCurrency] = useContext(CurrencyContext);
+  const [symbol, setSymbol] = useContext(SymbolContext);
+  const [isLoading, setIsLoading] = useContext(LoadingContext);
   const [coinList, setCoinList] = useState([]);
   const [search, setSearch] = useState('');
+  const [page, setPage] = useState(1);
   const fetchCoinList = async () => {
     setIsLoading(true);
     const res = await fetch(CoinList(currency));
@@ -17,9 +19,11 @@ const CoinTable = () => {
     console.log(data);
     setIsLoading(false);
   };
-  
+  const handlePageClick = (event) => {
+    setPage(event.selected + 1);
+  };
   const numberWithCommas = (x) => {
-     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
   };
   useEffect(() => {
     fetchCoinList();
@@ -57,56 +61,101 @@ const CoinTable = () => {
           </p>
         </div>
       ) : (
-        <table className='w-full sm:w-11/12 text-xs sm:text-base'>
-          <thead className=''>
-            <tr className='h-12 bg-white text-slate-900 rounded'>
-              <th className='text-left px-4'>Coin</th>
-              <th className='text-right'>Price</th>
-              <th className='text-right'>24h change</th>
-              <th className='text-right px-4'>Market Cap</th>
-            </tr>
-          </thead>
-          <tbody className='w-11/12 table-fixed bg-gray-800'>
-            {handleSearch().map((coin) => {
-              let profit = coin.price_change_percentage_24h >= 0;
-              return (
-                <tr className='border-b-2 border-gray-700 h-12'>
-                  <td className='w-6/12'>
-                    <div className='flex items-center my-3'>
-                      <img
-                        src={coin.image}
-                        alt={coin.name}
-                        className='h-8 sm:px-4 px-2'
-                      />
-                      <div className='flex flex-col'>
-                        <span className='uppercase'>{coin.symbol}</span>
-                        <span>{coin.name}</span>
-                      </div>
-                    </div>
-                  </td>
-                  <td className='text-right w-6/12'>
-                    {symbol}
-                    {coin.current_price > 999
-                      ? numberWithCommas(coin.current_price)
-                      : coin.current_price.toFixed(2)}
-                  </td>
-                  <td
-                    className={`text-right w-2/12 ${
-                      profit ? 'text-emerald-700' : 'text-red-700'
-                    }`}
-                  >
-                    {profit && '+'}
-                    {coin.price_change_percentage_24h.toFixed(2)}%
-                  </td>
-                  <td className='text-right w-2/12 px-4'>
-                    {symbol}
-                    {numberWithCommas(coin.market_cap.toString().slice(0, -6))}M
-                  </td>
-                </tr>
-              );
-            })}
-          </tbody>
-        </table>
+        <div className='flex flex-col items-center w-full'>
+          <ReactPaginate
+            pageCount={Math.ceil(handleSearch().length / 10)}
+            pageRangeDisplayed={2}
+            marginPagesDisplayed={1}
+            previousLabel={'<'}
+            nextLabel={'>'}
+            onPageChange={handlePageClick}
+            containerClassName={'flex my-2 justify-center items-center'}
+            pageClassName={
+              'm-1 flex justify-center items-center h-8 w-8 hover:bg-slate-700 rounded-full transition-bg duration-500'
+            }
+            previousClassName={
+              'm-1 flex justify-center items-center h-8 w-8 hover:bg-slate-700 rounded-full transition-bg duration-500'
+            }
+            nextClassName={
+              'm-1 flex justify-center items-center h-8 w-8 hover:bg-slate-700 rounded-full transition-bg duration-500'
+            }
+            activeClassName={'bg-slate-700'}
+          />
+          <table className='w-full sm:w-11/12 text-xs sm:text-base'>
+            <thead className=''>
+              <tr className='h-12 bg-white text-slate-900 rounded'>
+                <th className='text-left px-4'>Coin</th>
+                <th className='text-right'>Price</th>
+                <th className='text-right'>24h change</th>
+                <th className='text-right px-4'>Market Cap</th>
+              </tr>
+            </thead>
+            <tbody className='w-11/12 table-auto bg-gray-800'>
+              {handleSearch()
+                .slice((page - 1) * 10, (page - 1) * 10 + 10)
+                .map((coin) => {
+                  let profit = coin.price_change_percentage_24h >= 0;
+                  return (
+                    <tr className='border-b-2 border-gray-700 h-12'>
+                      <td className='w-6/12 sm:w-3/12'>
+                        <div className='flex items-center my-3'>
+                          <img
+                            src={coin.image}
+                            alt={coin.name}
+                            className='h-8 sm:px-4 px-2'
+                          />
+                          <div className='flex flex-col'>
+                            <span className='uppercase'>{coin.symbol}</span>
+                            <span>{coin.name}</span>
+                          </div>
+                        </div>
+                      </td>
+                      <td className='text-right w-6/12 sm:w-3/12'>
+                        {symbol}
+                        {coin.current_price > 999
+                          ? numberWithCommas(coin.current_price)
+                          : coin.current_price.toFixed(2)}
+                      </td>
+                      <td
+                        className={`text-right w-2/12 sm:w-3/12 ${
+                          profit ? 'text-emerald-700' : 'text-red-700'
+                        }`}
+                      >
+                        {profit && '+'}
+                        {coin.price_change_percentage_24h.toFixed(2)}%
+                      </td>
+                      <td className='text-right w-2/12 sm:w-3/12 px-4'>
+                        {symbol}
+                        {numberWithCommas(
+                          coin.market_cap.toString().slice(0, -6)
+                        )}
+                        M
+                      </td>
+                    </tr>
+                  );
+                })}
+            </tbody>
+          </table>
+          <ReactPaginate
+            pageCount={Math.ceil(handleSearch().length / 10)}
+            pageRangeDisplayed={2}
+            marginPagesDisplayed={1}
+            previousLabel={'<'}
+            nextLabel={'>'}
+            onPageChange={handlePageClick}
+            containerClassName={'flex my-2 justify-center items-center'}
+            pageClassName={
+              'm-1 flex justify-center items-center h-8 w-8 hover:bg-slate-700 rounded-full transition-bg duration-500'
+            }
+            previousClassName={
+              'm-1 flex justify-center items-center h-8 w-8 hover:bg-slate-700 rounded-full transition-bg duration-500'
+            }
+            nextClassName={
+              'm-1 flex justify-center items-center h-8 w-8 hover:bg-slate-700 rounded-full transition-bg duration-500'
+            }
+            activeClassName={'bg-slate-700'}
+          />
+        </div>
       )}
     </div>
   );
