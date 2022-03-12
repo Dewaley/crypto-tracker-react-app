@@ -16,7 +16,6 @@ const CoinTable = () => {
     const res = await fetch(CoinList(currency));
     const data = await res.json();
     setCoinList(data);
-    console.log(data);
     setIsLoading(false);
   };
   const handlePageClick = (event) => {
