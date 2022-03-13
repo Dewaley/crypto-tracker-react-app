@@ -8,8 +8,8 @@ import { CurrencyContext, SymbolContext, LoadingContext } from '../App';
 
 const Carousel = () => {
   const [isLoading, setIsLoading] = useContext(LoadingContext);
-  const [currency, setCurrency] = useContext(CurrencyContext);
-  const [symbol, setSymbol] = useContext(SymbolContext);
+  const [currency] = useContext(CurrencyContext);
+  const [symbol] = useContext(SymbolContext);
   const [trending, setTrending] = useState([]);
   const fetchTrending = async () => {
     setIsLoading(true);

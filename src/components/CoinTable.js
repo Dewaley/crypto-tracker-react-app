@@ -7,8 +7,8 @@ import { useNavigate } from 'react-router-dom';
 
 const CoinTable = () => {
   const navigate = useNavigate()
-  const [currency, setCurrency] = useContext(CurrencyContext);
-  const [symbol, setSymbol] = useContext(SymbolContext);
+  const [currency] = useContext(CurrencyContext);
+  const [symbol] = useContext(SymbolContext);
   const [isLoading, setIsLoading] = useContext(LoadingContext);
   const [coinList, setCoinList] = useState([]);
   const [search, setSearch] = useState('');
