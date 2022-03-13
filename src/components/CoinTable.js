@@ -3,8 +3,10 @@ import React, { useState, useEffect, useContext } from 'react';
 import { CurrencyContext, LoadingContext, SymbolContext } from '../App';
 import ReactPaginate from 'react-paginate';
 import { CoinList } from '../config/api';
+import { useNavigate } from 'react-router-dom';
 
 const CoinTable = () => {
+  const navigate = useNavigate()
   const [currency, setCurrency] = useContext(CurrencyContext);
   const [symbol, setSymbol] = useContext(SymbolContext);
   const [isLoading, setIsLoading] = useContext(LoadingContext);
@@ -61,27 +63,7 @@ const CoinTable = () => {
         </div>
       ) : (
         <div className='flex flex-col items-center w-full'>
-          <ReactPaginate
-            pageCount={Math.ceil(handleSearch().length / 10)}
-            pageRangeDisplayed={2}
-            marginPagesDisplayed={1}
-            previousLabel={'<'}
-            nextLabel={'>'}
-            forcePage={page - 1}
-            onPageChange={handlePageClick}
-            containerClassName={'flex my-2 justify-center items-center'}
-            pageClassName={
-              'm-1 flex justify-center items-center h-8 w-8 hover:bg-slate-700 rounded-full transition-bg duration-500'
-            }
-            previousClassName={
-              'm-1 flex justify-center items-center h-8 w-8 hover:bg-slate-700 rounded-full transition-bg duration-500'
-            }
-            nextClassName={
-              'm-1 flex justify-center items-center h-8 w-8 hover:bg-slate-700 rounded-full transition-bg duration-500'
-            }
-            activeClassName={'bg-slate-700'}
-          />
-          <table className='w-full sm:w-11/12 text-xs sm:text-base'>
+          <table className='w-11/12 text-xs sm:text-base'>
             <thead className=''>
               <tr className='h-12 bg-white text-slate-900 rounded'>
                 <th className='text-left px-4'>Coin</th>
@@ -96,8 +78,8 @@ const CoinTable = () => {
                 .map((coin) => {
                   let profit = coin.price_change_percentage_24h >= 0;
                   return (
-                    <tr className='border-b-2 border-gray-700 h-12'>
-                      <td className='w-6/12 sm:w-3/12'>
+                    <tr className='border-b-2 border-gray-700 h-12 cursor-pointer' onClick={()=>navigate(`/coin/${coin.id}`)}>
+                      <td className='w-3/12'>
                         <div className='flex items-center my-3'>
                           <img
                             src={coin.image}
@@ -110,21 +92,21 @@ const CoinTable = () => {
                           </div>
                         </div>
                       </td>
-                      <td className='text-right w-6/12 sm:w-3/12'>
+                      <td className='text-right w-3/12'>
                         {symbol}
                         {coin.current_price > 999
                           ? numberWithCommas(coin.current_price)
                           : coin.current_price.toFixed(2)}
                       </td>
                       <td
-                        className={`text-right w-2/12 sm:w-3/12 ${
+                        className={`text-right w-3/12 ${
                           profit ? 'text-emerald-700' : 'text-red-700'
                         }`}
                       >
                         {profit && '+'}
                         {coin.price_change_percentage_24h.toFixed(2)}%
                       </td>
-                      <td className='text-right w-2/12 sm:w-3/12 px-4'>
+                      <td className='text-right w-3/12 px-4'>
                         {symbol}
                         {numberWithCommas(
                           coin.market_cap.toString().slice(0, -6)
